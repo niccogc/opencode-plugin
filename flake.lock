@@ -1,0 +1,62 @@
+{
+  "nodes": {
+    "antigravity-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767873396,
+        "narHash": "sha256-RidyRx7mpUTTLfYbARzvogNrsrIQLANLSvBwx/DXUuk=",
+        "owner": "shekohex",
+        "repo": "opencode-google-antigravity-auth",
+        "rev": "05883951cb1dcf2d6b72708bf3f62c9391839f99",
+        "type": "github"
+      },
+      "original": {
+        "owner": "shekohex",
+        "repo": "opencode-google-antigravity-auth",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1767767207,
+        "narHash": "sha256-Mj3d3PfwltLmukFal5i3fFt27L6NiKXdBezC1EBuZs4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5912c1772a44e31bf1c63c0390b90501e5026886",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "oh-my-opencode-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767941218,
+        "narHash": "sha256-00weqPMFyRrpXexQgMngGSha8jAmnDp/CvDczalQwL8=",
+        "owner": "code-yeongyu",
+        "repo": "oh-my-opencode",
+        "rev": "a50878df51bc976adb81aa46d382875b2ada2727",
+        "type": "github"
+      },
+      "original": {
+        "owner": "code-yeongyu",
+        "ref": "v3.0.0-beta.2",
+        "repo": "oh-my-opencode",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "antigravity-src": "antigravity-src",
+        "nixpkgs": "nixpkgs",
+        "oh-my-opencode-src": "oh-my-opencode-src"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

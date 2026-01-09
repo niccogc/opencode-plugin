@@ -1,0 +1,94 @@
+{
+  description = "OpenCode Plugins Flake";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    oh-my-opencode-src = {
+      url = "github:code-yeongyu/oh-my-opencode/v3.0.0-beta.2";
+      flake = false;
+    };
+    antigravity-src = {
+      url = "github:shekohex/opencode-google-antigravity-auth";
+      flake = false;
+    };
+  };
+
+  outputs = {
+    self,
+    nixpkgs,
+    oh-my-opencode-src,
+    antigravity-src,
+  }: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+    mkOpenCodePlugin = {
+      pname,
+      version,
+      src,
+      outputHash,
+      entryPoint ? "src/index.ts",
+    }: let
+      node_modules = pkgs.stdenvNoCC.mkDerivation {
+        pname = "${pname}-node_modules";
+        inherit version src;
+        nativeBuildInputs = [pkgs.bun pkgs.writableTmpDirAsHomeHook];
+        dontFixup = true;
+        buildPhase = ''
+          export HOME=$TMPDIR
+          bun install --no-progress --frozen-lockfile
+        '';
+        installPhase = "cp -r node_modules $out";
+        inherit outputHash;
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+      };
+    in
+      pkgs.stdenvNoCC.mkDerivation {
+        inherit pname version src;
+        nativeBuildInputs = [pkgs.bun pkgs.typescript];
+        buildPhase = ''
+          cp -r ${node_modules} node_modules
+          chmod -R u+w node_modules
+          patchShebangs node_modules/.bin
+
+          ENTRY="${entryPoint}"
+          if [ ! -f "$ENTRY" ]; then ENTRY="index.ts"; fi
+
+          # 1. Bundle the JS (This is the critical part for OpenCode)
+          bun build "$ENTRY" --outdir dist --target bun --format esm
+
+          # 2. Generate Types (Fixing the TS5069 error by adding --declaration)
+          if [ -f "tsconfig.json" ]; then
+            tsc --emitDeclarationOnly --declaration || echo "Warning: Type generation failed, but JS is bundled."
+          fi
+        '';
+        installPhase = ''
+          mkdir -p $out
+          cp -r dist package.json $out/
+        '';
+        passthru.updateScript = [
+          "${pkgs.nix-update}/bin/nix-update"
+          "--version"
+          "branch"
+          pname
+        ];
+      };
+  in {
+    packages.${system} = {
+      oh-my-opencode = mkOpenCodePlugin {
+        pname = "oh-my-opencode";
+        version = "3.0.0-beta.2";
+        src = oh-my-opencode-src;
+        outputHash = "sha256-T8OzAr7N9MB/Kf0H6PHVEat2yHZo7cpJvHCjamHMDf4=";
+      };
+
+      antigravity = mkOpenCodePlugin {
+        pname = "opencode-antigravity-auth";
+        version = "1.2.8";
+        src = antigravity-src;
+        entryPoint = "index.ts"; # Explicitly set for this repo
+        outputHash = "sha256-RdkuMjqkwzHTeNFeNDkO/wtHjh6/dMqcpzqJZGR/YH4=";
+      };
+    };
+  };
+}
