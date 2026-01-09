@@ -1,7 +1,7 @@
 name: "Update All Dependencies"
 on:
   schedule:
-    - cron: '0 0 * * *' # Every day at midnight
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 permissions:
@@ -14,30 +14,24 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Nix (Determinate)
-        uses: DeterminateSystems/nix-installer-action@v14
+        uses: DeterminateSystems/nix-installer-action@v16
 
-      # 1. Update nixpkgs and other flake inputs (updates flake.lock)
+      # 1. This updates the flake.lock (the source code of the plugins)
       - name: Update Flake Inputs
         run: nix flake update
 
-      # 2. Update plugin versions in flake.nix (updates strings/revs)
-      - name: Update Plugin Versions
-        run: |
-          nix run nixpkgs#nix-update -- --flake --version branch oh-my-opencode
-          nix run nixpkgs#nix-update -- --flake --version branch antigravity
-
-      # 3. Fix hash mismatches for the node_modules FODs
-      - name: Fix Hash Mismatches
+      # 2. This builds the packages, catches the hash mismatch, 
+      # and automatically edits your flake.nix with the correct hashes.
+      - name: Auto-fix Hashes
         run: |
           nix run nixpkgs#determinate-nixd -- fix-hashes
 
-      # 4. Commit everything if there are changes
       - name: Commit and push
         run: |
           if [ -n "$(git status --porcelain)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add .
-            git commit -m "chore: auto-update nixpkgs, plugins, and hashes"
+            git commit -m "chore: auto-update inputs and hashes"
             git push
           fi

@@ -86,7 +86,7 @@
         pname = "opencode-antigravity-auth";
         version = "1.2.8";
         src = antigravity-src;
-        entryPoint = "index.ts"; # Explicitly set for this repo
+        entryPoint = "index.ts";
         outputHash = "sha256-RdkuMjqkwzHTeNFeNDkO/wtHjh6/dMqcpzqJZGR/YH4=";
       };
     };
