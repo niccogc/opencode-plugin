@@ -1,37 +1,42 @@
-name: "Update All Dependencies"
+name: update-plugins
 on:
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
-
-permissions:
-  contents: write
+  schedule:
+    - cron: '0 23 * * *'
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+      - name: Access private repository
+        uses: webfactory/ssh-agent@master
+        with:
+          ssh-private-key: ${{ secrets.GH_PRIVATE_KEY }}
+          
       - uses: actions/checkout@v4
-
-      - name: Install Nix (Determinate)
-        uses: DeterminateSystems/nix-installer-action@v16
-
-      # 1. This updates the flake.lock (the source code of the plugins)
-      - name: Update Flake Inputs
-        run: nix flake update
-
-      # 2. This builds the packages, catches the hash mismatch, 
-      # and automatically edits your flake.nix with the correct hashes.
-      - name: Auto-fix Hashes
+      
+      - uses: DeterminateSystems/nix-installer-action@main
+      
+      # 1. Update the lockfile first
+      - id: update
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          commit-msg: "chore(flake.lock): update"
+          token: "${{ secrets.GH_TOKEN }}"
+          
+      # 2. Fix the hashes inside flake.nix
+      # This builds the plugins and patches the SRI hashes automatically
+      - name: Fix hashes
         run: |
-          nix run nixpkgs#determinate-nixd -- fix-hashes
-
-      - name: Commit and push
+          nix run github:DeterminateSystems/nix-installer#determinate-nixd -- fix-hashes --auto-apply
+          
+      # 3. Commit the changes to flake.nix if hashes were updated
+      - name: Commit hash updates
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          if [ -n "$(git status --porcelain flake.nix)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add .
-            git commit -m "chore: auto-update inputs and hashes"
+            git add flake.nix
+            git commit -m "chore(flake.nix): update plugin hashes"
             git push
           fi

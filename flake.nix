@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     oh-my-opencode-src = {
-      url = "github:code-yeongyu/oh-my-opencode/v3.0.0-beta.2";
+      url = "github:code-yeongyu/oh-my-opencode";
       flake = false;
     };
     antigravity-src = {
