@@ -7,30 +7,32 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - name: Access private repository
-        uses: webfactory/ssh-agent@master
-        with:
-          ssh-private-key: ${{ secrets.GH_PRIVATE_KEY }}
-          
       - uses: actions/checkout@v4
       
       - uses: DeterminateSystems/nix-installer-action@main
       
-      # 1. Update the lockfile first
+      # 1. Update the flake.lock (source code pointers)
       - id: update
         uses: DeterminateSystems/update-flake-lock@main
         with:
           commit-msg: "chore(flake.lock): update"
-          token: "${{ secrets.GH_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           
-      # 2. Fix the hashes inside flake.nix
-      # This builds the plugins and patches the SRI hashes automatically
+      # 2. Fix the hashes inside flake.nix using the daemon-backed tool
       - name: Fix hashes
         run: |
+          # Build the packages to trigger hash mismatches
+          nix build .#oh-my-opencode --no-link || true
+          nix build .#antigravity --no-link || true
+          
+          # Run the fixer
           nix run github:DeterminateSystems/nix-installer#determinate-nixd -- fix-hashes --auto-apply
           
-      # 3. Commit the changes to flake.nix if hashes were updated
+      # 3. Commit and push the flake.nix changes
       - name: Commit hash updates
         run: |
           if [ -n "$(git status --porcelain flake.nix)" ]; then
@@ -39,4 +41,6 @@ jobs:
             git add flake.nix
             git commit -m "chore(flake.nix): update plugin hashes"
             git push
+          else
+            echo "No hash updates needed."
           fi
