@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "anthropic-auth-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767938938,
+        "narHash": "sha256-zeWRhAwBEZB7KwYmmh3unIpk+ulwrohE7fXPlGE5Nuc=",
+        "owner": "sst",
+        "repo": "opencode-anthropic-auth",
+        "rev": "3be03be7709e83266ee4818d529cd9566e660a85",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "repo": "opencode-anthropic-auth",
+        "type": "github"
+      }
+    },
     "antigravity-src": {
       "flake": false,
       "locked": {
@@ -35,22 +51,22 @@
     "oh-my-opencode-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767941218,
-        "narHash": "sha256-00weqPMFyRrpXexQgMngGSha8jAmnDp/CvDczalQwL8=",
+        "lastModified": 1767963257,
+        "narHash": "sha256-Yu+iYO4HyeLIJLl6uphHCNYCmeJ42Q3TgaT/3OI77JE=",
         "owner": "code-yeongyu",
         "repo": "oh-my-opencode",
-        "rev": "a50878df51bc976adb81aa46d382875b2ada2727",
+        "rev": "d6416082a2af3500f1f00dec60b29d423be00453",
         "type": "github"
       },
       "original": {
         "owner": "code-yeongyu",
-        "ref": "v3.0.0-beta.2",
         "repo": "oh-my-opencode",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
+        "anthropic-auth-src": "anthropic-auth-src",
         "antigravity-src": "antigravity-src",
         "nixpkgs": "nixpkgs",
         "oh-my-opencode-src": "oh-my-opencode-src"

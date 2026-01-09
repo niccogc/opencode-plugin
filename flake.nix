@@ -11,6 +11,10 @@
       url = "github:shekohex/opencode-google-antigravity-auth";
       flake = false;
     };
+    anthropic-auth-src = {
+      url = "github:sst/opencode-anthropic-auth";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -18,6 +22,7 @@
     nixpkgs,
     oh-my-opencode-src,
     antigravity-src,
+    anthropic-auth-src,
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -88,6 +93,13 @@
         src = antigravity-src;
         entryPoint = "index.ts";
         outputHash = "sha256-RdkuMjqkwzHTeNFeNDkO/wtHjh6/dMqcpzqJZGR/YH4=";
+      };
+      anthropic-auth = mkOpenCodePlugin {
+        pname = "opencode-anthropic-auth";
+        version = "0.0.7";
+        src = anthropic-auth-src;
+        entryPoint = "index.mjs"; # Note: this repo usually uses .mjs
+        outputHash = "sha256-uYg2Gwb7fLJxfamf3M1ZcAAQYTiYRD3S8/+QH8uTMHs=";
       };
     };
   };
