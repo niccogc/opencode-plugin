@@ -28,7 +28,7 @@ jobs:
           nix build .#antigravity --no-link || true
 
       - name: Auto-Fix Hashes
-        run: determinate-nixd fix-hashes --auto-apply
+        run: determinate-nixd fix hashes --auto-apply
 
       - name: Create Pull Request
         id: cpr
