@@ -19,11 +19,11 @@
     "antigravity-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767873396,
-        "narHash": "sha256-RidyRx7mpUTTLfYbARzvogNrsrIQLANLSvBwx/DXUuk=",
+        "lastModified": 1768254432,
+        "narHash": "sha256-dYvvKSvjNJg7t2V6hDeEgg0jvU1xzBh+tLVpy6tq3VE=",
         "owner": "shekohex",
         "repo": "opencode-google-antigravity-auth",
-        "rev": "05883951cb1dcf2d6b72708bf3f62c9391839f99",
+        "rev": "815f95f1d355f6b106475381d7d35adcef2ea700",
         "type": "github"
       },
       "original": {
@@ -51,11 +51,11 @@
     "oh-my-opencode-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1768155897,
-        "narHash": "sha256-4P7H3nrscbhGqk0JN9kOPnldW74gsSqPxysMscR/1lU=",
+        "lastModified": 1768221543,
+        "narHash": "sha256-ycE79X1FYLOzMLyIGQo/4xCDYLQMoSdyD1MHXNkvpNQ=",
         "owner": "code-yeongyu",
         "repo": "oh-my-opencode",
-        "rev": "91c490a35898a06cf140a3cd7de6efedfc725f59",
+        "rev": "e620b546abdd901e2f19646361403ecac62f72c5",
         "type": "github"
       },
       "original": {
