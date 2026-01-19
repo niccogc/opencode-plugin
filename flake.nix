@@ -26,6 +26,27 @@
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    # mkOpenCodePlugin = {
+    #   pname,
+    #   version,
+    #   src,
+    #   outputHash,
+    #   entryPoint ? "src/index.ts",
+    # }: let
+    #   node_modules = pkgs.stdenvNoCC.mkDerivation {
+    #     pname = "${pname}-node_modules";
+    #     inherit version src;
+    #     nativeBuildInputs = [pkgs.bun pkgs.writableTmpDirAsHomeHook];
+    #     dontFixup = true;
+    #     buildPhase = ''
+    #       export HOME=$TMPDIR
+    #       bun install --no-progress --frozen-lockfile
+    #     '';
+    #     installPhase = "cp -r node_modules $out";
+    #     inherit outputHash;
+    #     outputHashAlgo = "sha256";
+    #     outputHashMode = "recursive";
+    #   };
     mkOpenCodePlugin = {
       pname,
       version,
@@ -40,7 +61,8 @@
         dontFixup = true;
         buildPhase = ''
           export HOME=$TMPDIR
-          bun install --no-progress --frozen-lockfile
+          # We remove --frozen-lockfile so Bun can generate the lock info in-memory
+          bun install --no-progress
         '';
         installPhase = "cp -r node_modules $out";
         inherit outputHash;
@@ -84,7 +106,7 @@
         pname = "oh-my-opencode";
         version = "3.0.0-beta.2";
         src = oh-my-opencode-src;
-        outputHash = "sha256-D0K2jae6mFFVky5LBwgsk779UsAsNMySHX2OfBDbjeQ=";
+        outputHash = "sha256-sYJNV3CnyNJffwbQzIs2DoTHAIxI0c8d2l5lt5Hx1Ag=";
       };
 
       antigravity = mkOpenCodePlugin {
