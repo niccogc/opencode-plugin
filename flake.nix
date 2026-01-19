@@ -106,7 +106,7 @@
         pname = "oh-my-opencode";
         version = "3.0.0-beta.2";
         src = oh-my-opencode-src;
-        outputHash = "sha256-sYJNV3CnyNJffwbQzIs2DoTHAIxI0c8d2l5lt5Hx1Ag=";
+        outputHash = "sha256-8EMvMk6ZrYf9QnUsg4g+nR4773tlWj0/uSpkMdA07mY=";
       };
 
       antigravity = mkOpenCodePlugin {
