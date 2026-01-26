@@ -26,27 +26,6 @@
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    # mkOpenCodePlugin = {
-    #   pname,
-    #   version,
-    #   src,
-    #   outputHash,
-    #   entryPoint ? "src/index.ts",
-    # }: let
-    #   node_modules = pkgs.stdenvNoCC.mkDerivation {
-    #     pname = "${pname}-node_modules";
-    #     inherit version src;
-    #     nativeBuildInputs = [pkgs.bun pkgs.writableTmpDirAsHomeHook];
-    #     dontFixup = true;
-    #     buildPhase = ''
-    #       export HOME=$TMPDIR
-    #       bun install --no-progress --frozen-lockfile
-    #     '';
-    #     installPhase = "cp -r node_modules $out";
-    #     inherit outputHash;
-    #     outputHashAlgo = "sha256";
-    #     outputHashMode = "recursive";
-    #   };
     mkOpenCodePlugin = {
       pname,
       version,
@@ -61,7 +40,6 @@
         dontFixup = true;
         buildPhase = ''
           export HOME=$TMPDIR
-          # We remove --frozen-lockfile so Bun can generate the lock info in-memory
           bun install --no-progress
         '';
         installPhase = "cp -r node_modules $out";
@@ -81,10 +59,8 @@
           ENTRY="${entryPoint}"
           if [ ! -f "$ENTRY" ]; then ENTRY="index.ts"; fi
 
-          # 1. Bundle the JS (This is the critical part for OpenCode)
           bun build "$ENTRY" --outdir dist --target bun --format esm
 
-          # 2. Generate Types (Fixing the TS5069 error by adding --declaration)
           if [ -f "tsconfig.json" ]; then
             tsc --emitDeclarationOnly --declaration || echo "Warning: Type generation failed, but JS is bundled."
           fi
@@ -108,7 +84,6 @@
         src = oh-my-opencode-src;
         outputHash = "sha256-NYvTe+t+vadyKVoh/iOoj5cbtK59GAeeGUzQkBEEhMA=";
       };
-
       antigravity = mkOpenCodePlugin {
         pname = "opencode-antigravity-auth";
         version = "1.2.8";
@@ -120,7 +95,7 @@
         pname = "opencode-anthropic-auth";
         version = "0.0.7";
         src = anthropic-auth-src;
-        entryPoint = "index.mjs"; # Note: this repo usually uses .mjs
+        entryPoint = "index.mjs";
         outputHash = "sha256-uYg2Gwb7fLJxfamf3M1ZcAAQYTiYRD3S8/+QH8uTMHs=";
       };
     };
