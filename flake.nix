@@ -49,7 +49,16 @@
       };
     in
       pkgs.stdenvNoCC.mkDerivation {
-        inherit pname version src;
+        inherit pname version;
+        src = src // {url = src.outPath;};
+        passthru = {
+          updateScript = [
+            "${pkgs.nix-update}/bin/nix-update"
+            "--version"
+            "branch"
+            pname
+          ];
+        };
         nativeBuildInputs = [pkgs.bun pkgs.typescript];
         buildPhase = ''
           cp -r ${node_modules} node_modules
@@ -69,12 +78,6 @@
           mkdir -p $out
           cp -r dist package.json $out/
         '';
-        passthru.updateScript = [
-          "${pkgs.nix-update}/bin/nix-update"
-          "--version"
-          "branch"
-          pname
-        ];
       };
   in {
     packages.${system} = {
