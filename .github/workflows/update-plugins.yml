@@ -24,7 +24,6 @@ jobs:
 
       - name: Sync Version Strings
         run: |
-          # Define mapping of package name to its flake input name
           declare -A mapping=( 
             ["oh-my-opencode"]="oh-my-opencode-src" 
             ["opencode-antigravity-auth"]="antigravity-src" 
@@ -34,24 +33,22 @@ jobs:
           for pname in "${!mapping[@]}"; do
             input="${mapping[$pname]}"
             
-            # Get the path of the source from the flake
-            SRC_PATH=$(nix eval .#inputs.$input.outPath --raw)
+            # Fetch the store path for the input
+            SRC_PATH=$(nix eval .#inputs.$input --raw --allow-dirty)
             
-            # Extract version from package.json in that source
             if [ -f "$SRC_PATH/package.json" ]; then
               NEW_VER=$(jq -r .version "$SRC_PATH/package.json")
               echo "Updating $pname to $NEW_VER"
               
-              # Use sed to update the version line specifically for this pname
-              # This looks for the block containing pname and updates the version line after it
+              # Targeted sed: finds the pname line, then replaces the version on the next line
               sed -i "/pname = \"$pname\";/{n;s/version = \".*\";/version = \"$NEW_VER\";/}" flake.nix
             fi
           done
 
       - name: Auto-Fix Hashes
         run: |
-          # Build to trigger failure, then let nixd fix the outputHash
-          nix build .#oh-my-opencode .#antigravity .#anthropic-auth --no-link || true
+          # Trigger builds to find mismatching hashes, then apply fixes
+          nix build .#oh-my-opencode .#antigravity .#anthropic-auth --no-link --allow-dirty || true
           determinate-nixd fix hashes --auto-apply
 
       - name: Create Pull Request

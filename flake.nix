@@ -23,7 +23,7 @@
     oh-my-opencode-src,
     antigravity-src,
     anthropic-auth-src,
-  }: let
+  } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
     mkOpenCodePlugin = {
@@ -80,6 +80,7 @@
         '';
       };
   in {
+    inherit inputs;
     packages.${system} = {
       oh-my-opencode = mkOpenCodePlugin {
         pname = "oh-my-opencode";
