@@ -84,20 +84,20 @@
     packages.${system} = {
       oh-my-opencode = mkOpenCodePlugin {
         pname = "oh-my-opencode";
-        version = "3.0.0-beta.2";
+        version = "3.1.4";
         src = oh-my-opencode-src;
-        outputHash = "sha256-NYvTe+t+vadyKVoh/iOoj5cbtK59GAeeGUzQkBEEhMA=";
+        outputHash = "sha256-Cjz/mgPwemLnhKLanmaM3vWwCgH6Oztg25OXAKHVr2E=";
       };
       antigravity = mkOpenCodePlugin {
         pname = "opencode-antigravity-auth";
-        version = "1.2.8";
+        version = "0.2.14";
         src = antigravity-src;
         entryPoint = "index.ts";
         outputHash = "sha256-RdkuMjqkwzHTeNFeNDkO/wtHjh6/dMqcpzqJZGR/YH4=";
       };
       anthropic-auth = mkOpenCodePlugin {
         pname = "opencode-anthropic-auth";
-        version = "0.0.7";
+        version = "0.0.13";
         src = anthropic-auth-src;
         entryPoint = "index.mjs";
         outputHash = "sha256-uYg2Gwb7fLJxfamf3M1ZcAAQYTiYRD3S8/+QH8uTMHs=";
