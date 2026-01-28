@@ -19,17 +19,38 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Update Flake Lockfile
+      - name: Update Flake Inputs
         run: nix flake update
 
-      - name: Update Versions and Hashes
+      - name: Sync Version Strings
         run: |
-          for pkg in oh-my-opencode antigravity anthropic-auth; do
-            nix run nixpkgs#nix-update -- --flake --version branch $pkg
+          # Define mapping of package name to its flake input name
+          declare -A mapping=( 
+            ["oh-my-opencode"]="oh-my-opencode-src" 
+            ["opencode-antigravity-auth"]="antigravity-src" 
+            ["opencode-anthropic-auth"]="anthropic-auth-src" 
+          )
+
+          for pname in "${!mapping[@]}"; do
+            input="${mapping[$pname]}"
+            
+            # Get the path of the source from the flake
+            SRC_PATH=$(nix eval .#inputs.$input.outPath --raw)
+            
+            # Extract version from package.json in that source
+            if [ -f "$SRC_PATH/package.json" ]; then
+              NEW_VER=$(jq -r .version "$SRC_PATH/package.json")
+              echo "Updating $pname to $NEW_VER"
+              
+              # Use sed to update the version line specifically for this pname
+              # This looks for the block containing pname and updates the version line after it
+              sed -i "/pname = \"$pname\";/{n;s/version = \".*\";/version = \"$NEW_VER\";/}" flake.nix
+            fi
           done
 
-      - name: Final Hash Fix
+      - name: Auto-Fix Hashes
         run: |
+          # Build to trigger failure, then let nixd fix the outputHash
           nix build .#oh-my-opencode .#antigravity .#anthropic-auth --no-link || true
           determinate-nixd fix hashes --auto-apply
 
@@ -42,7 +63,7 @@ jobs:
           title: "🤖 Auto-update: OpenCode Plugins"
           branch: auto-update-plugins
           delete-branch: true
-          body: "Automated update of flake.lock, versions, and node_modules hashes."
+          body: "Automated update of flake.lock, versions, and hashes."
 
       - name: Auto-merge PR
         if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
