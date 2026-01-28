@@ -34,7 +34,7 @@
       entryPoint ? "src/index.ts",
     }: let
       node_modules = pkgs.stdenvNoCC.mkDerivation {
-        pname = "${pname}-node_modules";
+        pname = "${pname}-node_modules-${version}";
         inherit version src;
         nativeBuildInputs = [pkgs.bun pkgs.writableTmpDirAsHomeHook];
         dontFixup = true;

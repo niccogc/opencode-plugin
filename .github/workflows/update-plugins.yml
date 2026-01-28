@@ -22,13 +22,16 @@ jobs:
       - name: Update Flake Lockfile
         run: nix flake update
 
-      - name: Trigger Builds
+      - name: Update Versions and Hashes
         run: |
-          nix build .#oh-my-opencode --no-link || true
-          nix build .#antigravity --no-link || true
+          for pkg in oh-my-opencode antigravity anthropic-auth; do
+            nix run nixpkgs#nix-update -- --flake --version branch $pkg
+          done
 
-      - name: Auto-Fix Hashes
-        run: determinate-nixd fix hashes --auto-apply
+      - name: Final Hash Fix
+        run: |
+          nix build .#oh-my-opencode .#antigravity .#anthropic-auth --no-link || true
+          determinate-nixd fix hashes --auto-apply
 
       - name: Create Pull Request
         id: cpr
@@ -39,7 +42,7 @@ jobs:
           title: "🤖 Auto-update: OpenCode Plugins"
           branch: auto-update-plugins
           delete-branch: true
-          body: "Automated update of flake.lock and node_modules hashes."
+          body: "Automated update of flake.lock, versions, and node_modules hashes."
 
       - name: Auto-merge PR
         if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
