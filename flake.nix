@@ -84,13 +84,13 @@
     packages.${system} = {
       oh-my-opencode = mkOpenCodePlugin {
         pname = "oh-my-opencode";
-        version = "3.1.4";
+        version = "3.1.9";
         src = oh-my-opencode-src;
-        outputHash = "sha256-Cjz/mgPwemLnhKLanmaM3vWwCgH6Oztg25OXAKHVr2E=";
+        outputHash = "sha256-4JnE1oqH55kfcNtA0ptBtNc1W0l8kDFQszYPgSVCKdw=";
       };
       antigravity = mkOpenCodePlugin {
         pname = "opencode-antigravity-auth";
-        version = "0.2.14";
+        version = "0.2.15";
         src = antigravity-src;
         entryPoint = "index.ts";
         outputHash = "sha256-RdkuMjqkwzHTeNFeNDkO/wtHjh6/dMqcpzqJZGR/YH4=";
