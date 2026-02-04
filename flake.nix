@@ -84,9 +84,9 @@
     packages.${system} = {
       oh-my-opencode = mkOpenCodePlugin {
         pname = "oh-my-opencode";
-        version = "3.2.2";
+        version = "3.2.3";
         src = oh-my-opencode-src;
-        outputHash = "sha256-9kWsmOgc60jsCnDKU3A2abO6FFV+sADHJOm6T2Do954=";
+        outputHash = "sha256-YVbOuseSumA0ae1HFWTkxZm/haBuON+mEwINGaUM2GQ=";
       };
       antigravity = mkOpenCodePlugin {
         pname = "opencode-antigravity-auth";
