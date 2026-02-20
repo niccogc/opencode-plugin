@@ -51,11 +51,11 @@
     "oh-my-opencode-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1771538554,
-        "narHash": "sha256-QGx5FZdI3Yi3Ut8jaEnmb3lj/NgRhLZoO9GFpNxYrPA=",
+        "lastModified": 1771621170,
+        "narHash": "sha256-H167/viYKNuaPLey+4zJkMBEtHdpYEAW2MtFXmQJG4s=",
         "owner": "code-yeongyu",
         "repo": "oh-my-opencode",
-        "rev": "f3c8b0d098b836e31f27a3d55dbce3edacc27ee5",
+        "rev": "8623f58a3819f2bcce28aa51d768f82ae2f56596",
         "type": "github"
       },
       "original": {
