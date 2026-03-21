@@ -3,16 +3,16 @@
     "anthropic-auth-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1770222711,
-        "narHash": "sha256-3RVbRH7+5iFhytPpi2VYqFipWTmFCN/7p2hG9bjCQmQ=",
-        "owner": "sst",
-        "repo": "opencode-anthropic-auth",
-        "rev": "d5a1ab46ac58c93d0edf5c9eea46f3e72981f1fd",
+        "lastModified": 1773953828,
+        "narHash": "sha256-wHVtcshcALAATXPYUam1dqdkY0T3r5iXP5tCNlRFfDY=",
+        "owner": "thehugeman",
+        "repo": "opencode-anthropic-auth-community",
+        "rev": "f2519067e0dc41d075d40edddeed1d635edbeb23",
         "type": "github"
       },
       "original": {
-        "owner": "sst",
-        "repo": "opencode-anthropic-auth",
+        "owner": "thehugeman",
+        "repo": "opencode-anthropic-auth-community",
         "type": "github"
       }
     },
@@ -34,11 +34,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1771848320,
-        "narHash": "sha256-0MAd+0mun3K/Ns8JATeHT1sX28faLII5hVLq0L3BdZU=",
+        "lastModified": 1773821835,
+        "narHash": "sha256-TJ3lSQtW0E2JrznGVm8hOQGVpXjJyXY2guAxku2O9A4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2fc6539b481e1d2569f25f8799236694180c0993",
+        "rev": "b40629efe5d6ec48dd1efba650c797ddbd39ace0",
         "type": "github"
       },
       "original": {
@@ -51,11 +51,11 @@
     "oh-my-opencode-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1772056864,
-        "narHash": "sha256-Tjg8seaaxY2c56gGBL/LCEIz2KF3yFoxGqQ9wok44lc=",
+        "lastModified": 1774070847,
+        "narHash": "sha256-GdpyPASYDgzJLJ0Y7n7e3RjawK6Z+X58o5KDgtGCkWA=",
         "owner": "code-yeongyu",
         "repo": "oh-my-opencode",
-        "rev": "e556c4a5c82febf7de6adff7109248482254a204",
+        "rev": "363661c0d682d1e19ef28221dd01707e255cf4f8",
         "type": "github"
       },
       "original": {

@@ -12,7 +12,7 @@
       flake = false;
     };
     anthropic-auth-src = {
-      url = "github:sst/opencode-anthropic-auth";
+      url = "github:thehugeman/opencode-anthropic-auth-community";
       flake = false;
     };
   };
