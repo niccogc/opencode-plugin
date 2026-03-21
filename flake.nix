@@ -100,7 +100,7 @@
         version = "0.0.13";
         src = anthropic-auth-src;
         entryPoint = "index.mjs";
-        outputHash = "sha256-uYg2Gwb7fLJxfamf3M1ZcAAQYTiYRD3S8/+QH8uTMHs=";
+        outputHash = "sha256-nciHi3sNq8AtPzk9/QGZAZHOMX4utV27Pf9g3x6v43M=";
       };
     };
   };
