@@ -84,7 +84,7 @@
     packages.${system} = {
       oh-my-opencode = mkOpenCodePlugin {
         pname = "oh-my-opencode";
-        version = "3.8.5";
+        version = "3.11.0";
         src = oh-my-opencode-src;
         outputHash = "sha256-KRtE0mSpXKonkgyDFvdY/UgnegKtzdVI+VSZpa58AG0=";
       };
@@ -97,7 +97,7 @@
       };
       anthropic-auth = mkOpenCodePlugin {
         pname = "opencode-anthropic-auth";
-        version = "0.0.13";
+        version = "0.0.3";
         src = anthropic-auth-src;
         entryPoint = "index.mjs";
         outputHash = "sha256-nciHi3sNq8AtPzk9/QGZAZHOMX4utV27Pf9g3x6v43M=";
