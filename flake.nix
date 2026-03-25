@@ -11,8 +11,8 @@
       url = "github:shekohex/opencode-google-antigravity-auth";
       flake = false;
     };
-    anthropic-auth-src = {
-      url = "github:thehugeman/opencode-anthropic-auth-community";
+    claude-auth-src = {
+      url = "github:griffinmartin/opencode-claude-auth";
       flake = false;
     };
   };
@@ -22,7 +22,7 @@
     nixpkgs,
     oh-my-opencode-src,
     antigravity-src,
-    anthropic-auth-src,
+    claude-auth-src,
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -95,12 +95,12 @@
         entryPoint = "index.ts";
         outputHash = "sha256-RdkuMjqkwzHTeNFeNDkO/wtHjh6/dMqcpzqJZGR/YH4=";
       };
-      anthropic-auth = mkOpenCodePlugin {
-        pname = "opencode-anthropic-auth";
-        version = "0.0.13";
-        src = anthropic-auth-src;
-        entryPoint = "index.mjs";
-        outputHash = "sha256-nciHi3sNq8AtPzk9/QGZAZHOMX4utV27Pf9g3x6v43M=";
+      claude-auth = mkOpenCodePlugin {
+        pname = "opencode-claude-auth";
+        version = "1.3.1";
+        src = claude-auth-src;
+        entryPoint = "opencode-claude-auth.js";
+        outputHash = "";
       };
     };
   };

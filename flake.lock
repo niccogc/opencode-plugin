@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "anthropic-auth-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1773953828,
-        "narHash": "sha256-wHVtcshcALAATXPYUam1dqdkY0T3r5iXP5tCNlRFfDY=",
-        "owner": "thehugeman",
-        "repo": "opencode-anthropic-auth-community",
-        "rev": "f2519067e0dc41d075d40edddeed1d635edbeb23",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thehugeman",
-        "repo": "opencode-anthropic-auth-community",
-        "type": "github"
-      }
-    },
     "antigravity-src": {
       "flake": false,
       "locked": {
@@ -32,13 +16,29 @@
         "type": "github"
       }
     },
+    "claude-auth-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774405536,
+        "narHash": "sha256-KozBWaGAVvPHBgTnJoR0Xcau/Q8I7sAAWOwyt5+sHbo=",
+        "owner": "griffinmartin",
+        "repo": "opencode-claude-auth",
+        "rev": "92384f9aa1306accfe1406fa62aec3deb80e9568",
+        "type": "github"
+      },
+      "original": {
+        "owner": "griffinmartin",
+        "repo": "opencode-claude-auth",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1773821835,
-        "narHash": "sha256-TJ3lSQtW0E2JrznGVm8hOQGVpXjJyXY2guAxku2O9A4=",
+        "lastModified": 1774106199,
+        "narHash": "sha256-US5Tda2sKmjrg2lNHQL3jRQ6p96cgfWh3J1QBliQ8Ws=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b40629efe5d6ec48dd1efba650c797ddbd39ace0",
+        "rev": "6c9a78c09ff4d6c21d0319114873508a6ec01655",
         "type": "github"
       },
       "original": {
@@ -51,11 +51,11 @@
     "oh-my-opencode-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1774070847,
-        "narHash": "sha256-GdpyPASYDgzJLJ0Y7n7e3RjawK6Z+X58o5KDgtGCkWA=",
+        "lastModified": 1774412561,
+        "narHash": "sha256-TzVVYwQXsvhNj0TN2AIaKILHY8PlhT6ZAHWPxKMYyZI=",
         "owner": "code-yeongyu",
         "repo": "oh-my-opencode",
-        "rev": "363661c0d682d1e19ef28221dd01707e255cf4f8",
+        "rev": "c4aa380855266644e9951cf3a6255d8ad4608d5e",
         "type": "github"
       },
       "original": {
@@ -66,8 +66,8 @@
     },
     "root": {
       "inputs": {
-        "anthropic-auth-src": "anthropic-auth-src",
         "antigravity-src": "antigravity-src",
+        "claude-auth-src": "claude-auth-src",
         "nixpkgs": "nixpkgs",
         "oh-my-opencode-src": "oh-my-opencode-src"
       }
