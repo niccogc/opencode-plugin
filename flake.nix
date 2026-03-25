@@ -99,8 +99,8 @@
         pname = "opencode-claude-auth";
         version = "1.3.1";
         src = claude-auth-src;
-        entryPoint = "opencode-claude-auth.js";
-        outputHash = "";
+        entryPoint = "src/index.ts";
+        outputHash = "sha256-Ez9W7H+pvrBsgKavmt9bojobD6pVnWYJL8yiNPOc8nA=";
       };
     };
   };
